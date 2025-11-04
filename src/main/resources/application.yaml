@@ -4,8 +4,8 @@ spring:
 
   datasource:
     url: jdbc:postgresql://localhost:5432/contaspagar
-    username: admin
-    password: admin123
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
 
   jpa:
