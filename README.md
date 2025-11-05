@@ -4,6 +4,7 @@ Sistema REST API para gerenciamento de contas a pagar com cálculo automático d
 
 ## 🚀 Tecnologias
 
+### Backend
 - Java 17
 - Spring Boot 3.4.11
 - Spring Data JPA
@@ -15,11 +16,24 @@ Sistema REST API para gerenciamento de contas a pagar com cálculo automático d
 - JUnit 5
 - H2 Database (testes)
 
+### Frontend
+- Angular 20.3.9
+- TypeScript
+- RxJS
+- Node.js 22+
+- npm
+
 ## 📋 Requisitos
 
+### Para executar apenas o Backend:
 - Docker e Docker Compose
 - Java 17+ (apenas para desenvolvimento local)
 - Maven 3.9+ (apenas para desenvolvimento local)
+
+### Para executar com Frontend:
+- Node.js 22+ e npm
+- Angular CLI (`npm install -g @angular/cli`)
+- Todos os requisitos do backend acima
 
 ## 🔧 Configuração e Execução
 
@@ -53,6 +67,23 @@ docker logs -f contaspagar-db
 ./mvnw spring-boot:run
 
 # Windows: mvnw.cmd spring-boot:run
+```
+
+### Opção 3: Com Frontend Angular
+
+```bash
+# Terminal 1: Subir PostgreSQL e executar backend
+docker-compose up -d postgres
+./mvnw spring-boot:run
+
+# Terminal 2: Frontend
+cd frontend
+npm install
+ng serve
+
+# Acessar:
+# Frontend: http://localhost:4200
+# Backend: http://localhost:8080/api/contas
 ```
 
 ## 📡 Endpoints da API
@@ -244,6 +275,18 @@ contas-pagar/
 │   │       └── application-test.yaml
 │   └── test/
 │       └── java/                 # Testes Unitários
+├── frontend/                     # Aplicação Angular
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── app.ts           # Componente Principal
+│   │   │   ├── app.html         # Template
+│   │   │   ├── app.css          # Estilos
+│   │   │   ├── app.config.ts    # Configuração
+│   │   │   └── services/        # Serviços HTTP
+│   │   ├── styles.css           # Estilos Globais
+│   │   └── index.html
+│   ├── package.json
+│   └── angular.json
 ├── Dockerfile
 ├── docker-compose.yml
 ├── .dockerignore
