@@ -1,0 +1,125 @@
+<div class="container">
+  <header>
+    <h1>Sistema de Contas a Pagar</h1>
+    <p class="subtitle">Gestão de contas com cálculo automático de multas e juros</p>
+  </header>
+
+  <!-- Mensagens -->
+  @if (mensagem) {
+    <div class="alert alert-success">
+      {{ mensagem }}
+    </div>
+  }
+  @if (erro) {
+    <div class="alert alert-error">
+      {{ erro }}
+    </div>
+  }
+
+  <!-- Formulário -->
+  <div class="card">
+    <h2>Cadastrar Nova Conta</h2>
+    <form (ngSubmit)="salvar()">
+      <div class="form-group">
+        <label for="nome">Nome da Conta *</label>
+        <input 
+          type="text" 
+          id="nome" 
+          [(ngModel)]="novaConta.nome" 
+          name="nome"
+          placeholder="Ex: Conta de Luz"
+          required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="valorOriginal">Valor Original (R$) *</label>
+          <input 
+            type="number" 
+            id="valorOriginal" 
+            [(ngModel)]="novaConta.valorOriginal" 
+            name="valorOriginal"
+            step="0.01"
+            min="0.01"
+            placeholder="0.00"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="dataVencimento">Data de Vencimento *</label>
+          <input 
+            type="date" 
+            id="dataVencimento" 
+            [(ngModel)]="novaConta.dataVencimento" 
+            name="dataVencimento"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="dataPagamento">Data de Pagamento *</label>
+          <input 
+            type="date" 
+            id="dataPagamento" 
+            [(ngModel)]="novaConta.dataPagamento" 
+            name="dataPagamento"
+            required>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        Cadastrar Conta
+      </button>
+    </form>
+  </div>
+
+  <!-- Tabela de Contas -->
+  <div class="card">
+    <h2>Contas Cadastradas ({{ contas.length }})</h2>
+    
+    @if (contas.length === 0) {
+      <div class="empty-state">
+        Nenhuma conta cadastrada ainda.
+      </div>
+    }
+
+    @if (contas.length > 0) {
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Valor Original</th>
+            <th>Valor Corrigido</th>
+            <th>Dias de Atraso</th>
+            <th>Multa</th>
+            <th>Juros/Dia</th>
+            <th>Data Pagamento</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (conta of contas; track conta.id) {
+            <tr>
+              <td>{{ conta.nome }}</td>
+              <td>{{ conta.valorOriginal | currency:'BRL' }}</td>
+              <td class="highlight">{{ conta.valorCorrigido | currency:'BRL' }}</td>
+              <td>
+                <span 
+                  [class.badge-danger]="(conta.diasAtraso || 0) > 0" 
+                  [class.badge-success]="conta.diasAtraso === 0"
+                  class="badge">
+                  {{ conta.diasAtraso }} {{ conta.diasAtraso === 1 ? 'dia' : 'dias' }}
+                </span>
+              </td>
+              <td>{{ conta.percentualMulta }}%</td>
+              <td>{{ conta.percentualJurosDia }}%</td>
+              <td>{{ conta.dataPagamento | date:'dd/MM/yyyy' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+
+  <footer>
+    <p>Desenvolvido para Deliver IT | Sistema de Gestão de Contas a Pagar</p>
+  </footer>
+</div>
