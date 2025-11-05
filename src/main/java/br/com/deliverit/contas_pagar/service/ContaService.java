@@ -53,8 +53,8 @@ public class ContaService {
 
         if (dias <= 0) {
             // Sem atraso
-            multa = BigDecimal.ZERO;
-            jurosDia = BigDecimal.ZERO;
+            multa = new BigDecimal("0.00");
+            jurosDia = new BigDecimal("0.000");
         } else if (dias <= 3) {
             // Até 3 dias: 2% multa + 0,1% juros/dia
             multa = new BigDecimal("2.00");
