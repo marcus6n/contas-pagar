@@ -37,41 +37,15 @@ Sistema REST API para gerenciamento de contas a pagar com cálculo automático d
 
 ## 🔧 Configuração e Execução
 
-### Opção 1: Docker Compose (Recomendado)
+### Execução (Front-end Angular)
+
+Este projeto deve ser executado usando o front-end Angular como interface principal. Para rodar localmente, siga os passos abaixo:
 
 ```bash
-# Clonar o repositório
+# Clonar o repositório e entrar na pasta do projeto
 git clone https://github.com/marcus6n/contas-pagar.git
 cd contas-pagar
 
-# Subir aplicação e banco de dados
-docker-compose up -d
-
-# Verificar logs
-docker-compose logs -f app
-
-# Acessar API
-# http://localhost:8080/api/contas
-```
-
-### Opção 2: Execução Local
-
-```bash
-# 1. Subir apenas o PostgreSQL
-docker-compose up -d postgres
-
-# 2. Aguardar banco estar pronto
-docker logs -f contaspagar-db
-
-# 3. Executar aplicação
-./mvnw spring-boot:run
-
-# Windows: mvnw.cmd spring-boot:run
-```
-
-### Opção 3: Com Frontend Angular
-
-```bash
 # Terminal 1: Subir PostgreSQL e executar backend
 docker-compose up -d postgres
 ./mvnw spring-boot:run
@@ -85,6 +59,8 @@ ng serve
 # Frontend: http://localhost:4200
 # Backend: http://localhost:8080/api/contas
 ```
+
+Nota: as instruções anteriores (Opção 1 e Opção 2) foram removidas — a recomendação é usar o frontend Angular como ponto de interação com a aplicação.
 
 ## 📡 Endpoints da API
 
