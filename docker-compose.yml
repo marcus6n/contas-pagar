@@ -13,10 +13,33 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d contaspagar"]
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - contaspagar-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: contaspagar-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/contaspagar
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    networks:
+      - contaspagar-network
 
 volumes:
   postgres_data:
+
+networks:
+  contaspagar-network:
+    driver: bridge
