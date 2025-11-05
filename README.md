@@ -41,7 +41,7 @@ Sistema REST API para gerenciamento de contas a pagar com cálculo automático d
 
 ```bash
 # Clonar o repositório
-git clone <seu-repositorio>
+git clone https://github.com/marcus6n/contas-pagar.git
 cd contas-pagar
 
 # Subir aplicação e banco de dados
